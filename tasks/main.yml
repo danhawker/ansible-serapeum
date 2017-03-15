@@ -1,0 +1,7 @@
+---
+# tasks file for ansible-serapeum
+
+# Download images
+- include: download_images.yaml
+
+#- include: docker_distribution.yaml

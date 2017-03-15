@@ -1,0 +1,26 @@
+---
+
+# Download Docker Images from repos
+- name: Pull Images
+  docker_image:
+    name: "{{ item }}"
+  with_items:
+  - "{{ serapeum_ocp_base_images }}"
+  - "{{ serapeum_ocp_logging_metrics_images }}"
+
+# Create temp dir
+- name: Create Images Export Directory
+  file:
+    path: "{{ serapeum_offline_images_dir }}"
+    state: directory
+    mode: 0777
+
+# Save Images to Tarball
+- name: Save Images to Tarball
+  docker_image:
+    name: "{{ item.name }}"
+    archive_path: "{{ serapeum_offline_images_dir}}/{{ item }}.tar"
+    tag: "{{ item.tag }}"
+  with_items:
+  - "{{ serapeum_ocp_base_images }}"
+  - "{{ serapeum_ocp_logging_metrics_images }}"

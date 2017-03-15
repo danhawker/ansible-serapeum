@@ -1,0 +1,36 @@
+---
+# vars file for ansible-serapeum
+
+# What tags to download
+# OCP v3.4
+serapeum_ocp_base_images_tag: "3.4.1.7"
+serapeum_ocp_logging_metrics_images_tag: "3.4.1"
+
+
+# Base OCP Images
+serapeum_ocp_base_images:
+- { "name": "registry.access.redhat.com/openshift3/ose", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose-haproxy-router", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose-deployer", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose-sti-builder", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose-docker-builder", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose-pod", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose-docker-registry", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/openvswitch", "tag": {{ serapeum_ocp_base_images_tag }} }
+
+# Extra OCP Images
+serapeum_ocp_extra_images:
+- { "name": "registry.access.redhat.com/rhel7/etcd", "tag": "latest"}
+
+# OCP Logging and Metrics Images
+serapeum_ocp_logging_metrics_images:
+- { "name": "registry.access.redhat.com/openshift3/logging-deployer", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/logging-elasticsearch", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/logging-kibana", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/logging-fluentd", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/logging-curator", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/logging-auth-proxy", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/metrics-deployer", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/metrics-hawkular-metrics", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/metrics-cassandra", "tag": "3.3.1"}
+- { "name": "registry.access.redhat.com/openshift3/metrics-heapster", "tag": "3.3.1"}

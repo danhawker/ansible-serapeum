@@ -1,0 +1,19 @@
+---
+# Install and configure docker-distribution
+
+# Install docker-distribution RPM
+- name: Install docker-distribution
+  yum:
+    name: docker-distribution
+    state: present
+
+# Install docker (engine)
+- name: Install docker
+  yum:
+    name: docker
+    state: present
+
+# Load Offline Tarball
+- name: Docker Load Offline Tarball
+  docker_image:
+    load_path: {{ serapeum_offline_images_dir }}
