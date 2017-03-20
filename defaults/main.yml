@@ -3,10 +3,13 @@
 
 # Enabled Stages
 serapeum_stage_prepare: false
-serapeum_stage_deploy: true
+serapeum_stage_deploy: false
 
 # Docker Defaults
 serapeum_docker_service_name: docker
+
+# Docker.py Defaults
+serapeum_docker_py_name: python-docker-py
 
 # Registry Defaults
 serapeum_registry_hostname: "{{ ansible_fqdn }}"
