@@ -11,7 +11,7 @@
     name: {{ serapeum_docker_service_name }}
     state: present
     when: ansible_os_family == "RedHat"
-    register: "{{ serapeum_docker_service_name }}"_installed
+    register: "{{ serapeum_docker_service_name }}_installed"
 
 #
 # -----------------------------------------------------------------------------
@@ -24,7 +24,7 @@
       state: started
       enabled: yes
       when: ansible_os_family == "RedHat"
-      register: "{{ serapeum_docker_service_name }}"_started
+      register: "{{ serapeum_docker_service_name }}_started"
 
 #
 # -----------------------------------------------------------------------------
@@ -36,4 +36,4 @@
     name: {{ serapeum_docker_py_name }}
     state: present
     when: ansible_os_family == "RedHat"
-    register: "{{ serapeum_docker_py_name }}"_installed
+    register: "{{ serapeum_docker_py_name }}_installed"

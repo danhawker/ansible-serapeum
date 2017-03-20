@@ -10,7 +10,7 @@
   yum:
     name: {{ serapeum_registry_service_name }}
     state: present
-    notify: {{ serapeum_registry_service_name }}_installed
+    notify: "{{ serapeum_registry_service_name }}_installed"
 
 #
 # -----------------------------------------------------------------------------
@@ -23,7 +23,7 @@
       state: started
       enabled: yes
       when: {{ serapeum_registry_service_name }}_installed
-      register: "{{ serapeum_registry_service_name }}"_started
+      register: "{{ serapeum_registry_service_name }}_started"
 
 
 # Load Offline Tarball
