@@ -8,7 +8,7 @@
 #
 - name: Install Docker
   yum:
-    name: {{ serapeum_docker_service_name }}
+    name: "{{ serapeum_docker_service_name }}"
     state: present
     when: ansible_os_family == "RedHat"
     register: "{{ serapeum_docker_service_name }}_installed"
@@ -20,7 +20,7 @@
 #
 - name: Enable and Start Docker
   service:
-      name: {{ serapeum_docker_service_name }}
+      name: "{{ serapeum_docker_service_name }}"
       state: started
       enabled: yes
       when: ansible_os_family == "RedHat"
@@ -33,7 +33,7 @@
 #
 - name: Install docker.py
   yum:
-    name: {{ serapeum_docker_py_name }}
+    name: "{{ serapeum_docker_py_name }}"
     state: present
     when: ansible_os_family == "RedHat"
     register: "{{ serapeum_docker_py_name }}_installed"

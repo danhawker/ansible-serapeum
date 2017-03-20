@@ -8,7 +8,7 @@
 #
 - name: Install Registry
   yum:
-    name: {{ serapeum_registry_service_name }}
+    name: "{{ serapeum_registry_service_name }}"
     state: present
     notify: "{{ serapeum_registry_service_name }}_installed"
 
@@ -19,10 +19,10 @@
 #
 - name: Enable and Start Registry
   service:
-      name: {{ serapeum_registry_service_name }}
+      name: "{{ serapeum_registry_service_name }}"
       state: started
       enabled: yes
-      when: {{ serapeum_registry_service_name }}_installed
+      when: "{{ serapeum_registry_service_name }}_installed"
       register: "{{ serapeum_registry_service_name }}_started"
 
 
@@ -38,10 +38,10 @@
 #
 - name: Load, Tag and Upload Images to Registry
   docker_image:
-    name: {{ serapeum_registry_host }}:{{ serapeum_registry_port }}/{{ item.name }}
-    tag: {{ item.tag }}
+    name: "{{ serapeum_registry_host }}:{{ serapeum_registry_port }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
     push: yes
-    load_path: {{ serapeum_offline_images_dir }}/{{ item }}.tar
+    load_path: "{{ serapeum_offline_images_dir }}/{{ item }}.tar"
   with_items:
   - "{{ serapeum_ocp_base_images }}"
   - "{{ serapeum_ocp_logging_metrics_images }}"
