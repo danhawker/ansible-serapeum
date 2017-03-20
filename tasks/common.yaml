@@ -1,0 +1,27 @@
+---
+# Common Setup
+
+#
+# -----------------------------------------------------------------------------
+# Install docker (engine)
+# -----------------------------------------------------------------------------
+#
+- name: Install Docker
+  yum:
+    name: {{ serapeum_docker_service_name }}
+    state: present
+    when: ansible_os_family == "RedHat"
+    register: {{ serapeum_docker_service_name }}_installed
+
+#
+# -----------------------------------------------------------------------------
+# Enable and Start Docker
+# -----------------------------------------------------------------------------
+#
+- name: Enable and Start Docker
+  service:
+      name: {{ serapeum_docker_service_name }}
+      state: started
+      enabled: yes
+      when: ansible_os_family == "RedHat"
+      register: {{ serapeum_docker_service_name }}_started

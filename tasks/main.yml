@@ -1,7 +1,25 @@
 ---
-# tasks file for ansible-serapeum
+# Tasks file for ansible-serapeum
 
-# Download images
-- include: download_images.yaml
+#
+# -----------------------------------------------------------------------------
+# Common Tasks
+# -----------------------------------------------------------------------------
+#
+- include: common.yaml
 
-#- include: docker_distribution.yaml
+#
+# -----------------------------------------------------------------------------
+# Download and Prepare Images
+# -----------------------------------------------------------------------------
+#
+- include: download_prepare.yaml
+  when: serapeum_stage_prepare
+
+#
+# -----------------------------------------------------------------------------
+# Deploy Registry and Populate
+# -----------------------------------------------------------------------------
+#
+- include: deploy_populate.yaml
+  when: serapeum_stage_deploy

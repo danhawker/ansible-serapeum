@@ -5,7 +5,7 @@
 # OCP v3.4
 serapeum_ocp_base_images_tag: "3.4.1.7"
 serapeum_ocp_logging_metrics_images_tag: "3.4.1"
-
+serapeum_ocp_extra_images_tag: "latest"
 
 # Base OCP Images
 serapeum_ocp_base_images:

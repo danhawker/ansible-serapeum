@@ -1,2 +1,15 @@
 ---
 # defaults file for ansible-serapeum
+
+# Enabled Stages
+serapeum_stage_prepare: false
+serapeum_stage_deploy: true
+
+# Docker Defaults
+serapeum_docker_service_name: docker
+
+# Registry Defaults
+serapeum_registry_hostname: "{{ ansible_fqdn }}"
+serapeum_registry_service_name: docker-distribution
+serapeum_registry_port: 5000
+serapeum_registry_insecure: true
