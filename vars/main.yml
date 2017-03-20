@@ -9,14 +9,14 @@ serapeum_ocp_extra_images_tag: "latest"
 
 # Base OCP Images
 serapeum_ocp_base_images:
-- { "name": "registry.access.redhat.com/openshift3/ose", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/ose-haproxy-router", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/ose-deployer", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/ose-sti-builder", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/ose-docker-builder", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/ose-pod", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/ose-docker-registry", "tag": {{ serapeum_ocp_base_images_tag }} }
-- { "name": "registry.access.redhat.com/openshift3/openvswitch", "tag": {{ serapeum_ocp_base_images_tag }} }
+- { "name": "registry.access.redhat.com/openshift3/ose", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/ose-haproxy-router", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/ose-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/ose-sti-builder", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/ose-docker-builder", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/ose-pod", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/ose-docker-registry", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "name": "registry.access.redhat.com/openshift3/openvswitch", "tag": "{{ serapeum_ocp_base_images_tag }}" }
 
 # Extra OCP Images
 serapeum_ocp_extra_images:
