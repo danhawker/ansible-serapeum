@@ -10,7 +10,8 @@
   yum:
     name: "{{ serapeum_registry_service_name }}"
     state: present
-    register: "registry_installed"
+  when: ansible_os_family == "RedHat"
+  register: "registry_installed"
 
 #
 # -----------------------------------------------------------------------------
@@ -19,13 +20,13 @@
 #
 - name: Enable and Start Registry
   service:
-      name: "{{ serapeum_registry_service_name }}"
-      state: started
-      enabled: yes
-      when:
-        - "{{ serapeum_registry_service_name }}_installed"
-        - registry_installed
-      register: "registry_started"
+    name: "{{ serapeum_registry_service_name }}"
+    state: started
+    enabled: yes
+  when:
+    - ansible_os_family == "RedHat"
+    - registry_installed
+  register: "registry_started"
 
 # Load Offline Tarball
 #- name: Docker Load Offline Tarball
