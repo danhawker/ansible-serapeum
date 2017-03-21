@@ -10,7 +10,7 @@
   yum:
     name: "{{ serapeum_registry_service_name }}"
     state: present
-    notify: "{{ serapeum_registry_service_name }}_installed"
+    register: "registry_installed"
 
 #
 # -----------------------------------------------------------------------------
@@ -22,9 +22,10 @@
       name: "{{ serapeum_registry_service_name }}"
       state: started
       enabled: yes
-      when: "{{ serapeum_registry_service_name }}_installed"
-      register: "{{ serapeum_registry_service_name }}_started"
-
+      when:
+        - "{{ serapeum_registry_service_name }}_installed"
+        - registry_installed
+      register: "registry_started"
 
 # Load Offline Tarball
 #- name: Docker Load Offline Tarball
