@@ -8,10 +8,12 @@
 #
 - name: Pull Images
   docker_image:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
+    tag: "{{ item.tag }}"
   with_items:
-  - "{{ serapeum_ocp_base_images }}"
-  - "{{ serapeum_ocp_logging_metrics_images }}"
+#  - "{{ serapeum_ocp_base_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
 
 #
 # -----------------------------------------------------------------------------
@@ -35,5 +37,6 @@
     archive_path: "{{ serapeum_offline_images_dir}}/{{ item }}.tar"
     tag: "{{ item.tag }}"
   with_items:
-  - "{{ serapeum_ocp_base_images }}"
-  - "{{ serapeum_ocp_logging_metrics_images }}"
+#  - "{{ serapeum_ocp_base_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  - "{{ serapeum_ocp_extra_images }}"

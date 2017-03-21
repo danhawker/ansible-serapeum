@@ -7,6 +7,8 @@ serapeum_ocp_base_images_tag: "v3.4.1.7"
 serapeum_ocp_logging_metrics_images_tag: "3.4.1"
 serapeum_ocp_extra_images_tag: "latest"
 
+# failed: [localhost] (item={u'tag': u'v3.4.1.7', u'name': u'registry.access.redhat.com/openshift3/ose'}) => {"failed": true, "item": {"name": "registry.access.redhat.com/openshift3/ose", "tag": "v3.4.1.7"}, "msg": "Error pulling image {'tag': 'v3.4.1.7', 'name': 'registry.access.redhat.com/openshift3/ose'}:latest - 500 Server Error: Internal Server Error (\"{\"message\":\"Error parsing reference: \\\"{'tag': 'v3.4.1.7', 'name': 'registry.access.redhat.com/openshift3/ose'}\\\" is not a valid repository/tag\"}\")"}
+
 # Base OCP Images
 serapeum_ocp_base_images:
 - { "name": "registry.access.redhat.com/openshift3/ose", "tag": "{{ serapeum_ocp_base_images_tag }}" }

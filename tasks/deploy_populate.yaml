@@ -45,6 +45,7 @@
     push: yes
     load_path: "{{ serapeum_offline_images_dir }}/{{ item }}.tar"
   with_items:
-  - "{{ serapeum_ocp_base_images }}"
-  - "{{ serapeum_ocp_logging_metrics_images }}"
+#  - "{{ serapeum_ocp_base_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
   register: images_uploaded
