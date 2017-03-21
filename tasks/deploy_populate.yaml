@@ -40,7 +40,7 @@
 #
 - name: Load, Tag and Upload Images to Registry
   docker_image:
-    name: "{{ serapeum_registry_host }}:{{ serapeum_registry_port }}/{{ item.name }}"
+    name: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
     tag: "{{ item.tag }}"
     push: yes
     load_path: "{{ serapeum_offline_images_dir }}/images.tar"
