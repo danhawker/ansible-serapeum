@@ -34,7 +34,7 @@
 - name: Save Images to Tarball
   docker_image:
     name: "{{ item.name }}"
-    archive_path: "{{ serapeum_offline_images_dir}}/{{ item }}.tar"
+    archive_path: "{{ serapeum_offline_images_dir}}/images.tar"
     tag: "{{ item.tag }}"
   with_items:
 #  - "{{ serapeum_ocp_base_images }}"
