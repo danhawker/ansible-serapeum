@@ -8,7 +8,7 @@
 #
 - name: Pull Images
   docker_image:
-    name: "{{ item.name }}"
+    name: "{{ item.repository }}/{{ item.name }}"
     tag: "{{ item.tag }}"
   with_items:
 #  - "{{ serapeum_ocp_base_images }}"

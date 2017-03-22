@@ -6,6 +6,7 @@
 serapeum_ocp_base_images_tag: "v3.4.1.7"
 serapeum_ocp_logging_metrics_images_tag: "3.4.1"
 serapeum_ocp_extra_images_tag: "latest"
+serapeum_ocp_registry: "registry.access.redhat.com"
 
 # Base OCP Images
 serapeum_ocp_base_images:
@@ -20,8 +21,8 @@ serapeum_ocp_base_images:
 
 # Extra OCP Images
 serapeum_ocp_extra_images:
-- { "name": "registry.access.redhat.com/rhel7/etcd", "tag": "latest"}
-- { "name": "registry.access.redhat.com/rhel7/rhel-atomic", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "name": "rhel7/etcd", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "name": "rhel7/rhel-atomic", "tag": "latest"}
 
 # OCP Logging and Metrics Images
 serapeum_ocp_logging_metrics_images:

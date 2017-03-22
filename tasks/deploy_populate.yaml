@@ -3,7 +3,7 @@
 
 #
 # -----------------------------------------------------------------------------
-# Install docker-distribution RPM
+# Install Registry (docker-distribution RPM)
 # -----------------------------------------------------------------------------
 #
 - name: Install Registry
@@ -49,3 +49,8 @@
 #  - "{{ serapeum_ocp_logging_metrics_images }}"
   - "{{ serapeum_ocp_extra_images }}"
   register: images_uploaded
+
+
+# failed: [localhost] (item={u'tag': u'latest', u'name': u'registry.access.redhat.com/rhel7/etcd'}) => {"failed": true, "item": {"name": "registry.access.redhat.com/rhel7/etcd", "tag": "latest"}, "msg": "Error pushing image ip-172-31-27-76.eu-west-2.compute.internal:5000/registry.access.redhat.com/rhel7/etcd: An image does not exist locally with the tag: ip-172-31-27-76.eu-west-2.compute.internal:5000/registry.access.redhat.com/rhel7/etcd"}
+
+#
