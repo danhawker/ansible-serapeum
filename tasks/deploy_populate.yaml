@@ -26,28 +26,42 @@
   when:
     - ansible_os_family == "RedHat"
     - registry_installed
-  register: "registry_started"
-
-# Load Offline Tarball
-#- name: Docker Load Offline Tarball
-#  docker_image:
-#    load_path: {{ serapeum_offline_images_dir }}
+  register: registry_started
 
 #
 # -----------------------------------------------------------------------------
-# Load, Tag and Upload to Registry
+# Load and Tag Offline Images from Tarball
 # -----------------------------------------------------------------------------
 #
-- name: Load, Tag and Upload Images to Registry
+- name: Load Offline Images Tarball
+  docker_image:
+    name: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
+    load_path: "{{ serapeum_offline_images_dir }}/images.tar"
+  with_items:
+  - "{{ serapeum_ocp_extra_images }}"
+  when:
+  - images_saved
+  register: images_loaded
+
+#
+# -----------------------------------------------------------------------------
+# Upload Images to Registry
+# -----------------------------------------------------------------------------
+#
+- name: Upload Images to Registry
   docker_image:
     name: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
     tag: "{{ item.tag }}"
     push: yes
-    load_path: "{{ serapeum_offline_images_dir }}/images.tar"
+    #load_path: "{{ serapeum_offline_images_dir }}/images.tar"
   with_items:
 #  - "{{ serapeum_ocp_base_images }}"
 #  - "{{ serapeum_ocp_logging_metrics_images }}"
   - "{{ serapeum_ocp_extra_images }}"
+  when:
+      - registry_started
+      - images_loaded
   register: images_uploaded
 
 

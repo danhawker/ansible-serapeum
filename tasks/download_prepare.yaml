@@ -40,3 +40,4 @@
 #  - "{{ serapeum_ocp_base_images }}"
 #  - "{{ serapeum_ocp_logging_metrics_images }}"
   - "{{ serapeum_ocp_extra_images }}"
+  register: images_saved
