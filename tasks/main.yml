@@ -22,7 +22,7 @@
 # Download and Prepare Images
 # -----------------------------------------------------------------------------
 #
-- include: download_archive.yaml
+- include: images_prepare.yaml
   when: serapeum_stage_prepare
 
 #
@@ -40,5 +40,5 @@
 # Populate Registry
 # -----------------------------------------------------------------------------
 #
-- include: populate.yaml
+- include: images_populate.yaml
   when: serapeum_stage_deploy

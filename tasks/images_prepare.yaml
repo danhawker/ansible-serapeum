@@ -1,5 +1,5 @@
 ---
-# Download and Archive Docker Images
+# Download & Archive Specified Docker Images
 
 #
 # -----------------------------------------------------------------------------
@@ -16,22 +16,6 @@
 
 #
 # -----------------------------------------------------------------------------
-# Download OCP Images from repos
-# -----------------------------------------------------------------------------
-#
-- name: Pull OCP Images
-  docker_image:
-    name: "{{ item.repository }}/{{ item.name }}"
-    tag: "{{ item.tag }}"
-  with_items:
-#  - "{{ serapeum_ocp_base_images }}"
-#  - "{{ serapeum_ocp_logging_metrics_images }}"
-  - "{{ serapeum_ocp_extra_images }}"
-  when: serapeum_openshift_enabled
-  register: ocp_images_pulled
-
-#
-# -----------------------------------------------------------------------------
 # Create temp dir
 # -----------------------------------------------------------------------------
 #
@@ -40,6 +24,7 @@
     path: "{{ serapeum_offline_images_dir }}"
     state: directory
     mode: 0777
+  register: temp_dir_created
 
 #
 # -----------------------------------------------------------------------------
@@ -49,7 +34,7 @@
 - name: Save Images to Tarball
   docker_image:
     name: "{{ item.name }}"
-    archive_path: "{{ serapeum_offline_images_dir}}/{{ serapeum_docker_offline_images_tarball }}"
+    archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
     tag: "{{ item.tag }}"
   with_items:
   - "{{ serapeum_docker_images }}"
@@ -58,19 +43,21 @@
 
 #
 # -----------------------------------------------------------------------------
-# Archive OCP Images to Tarball
+# Verify Tarball
 # -----------------------------------------------------------------------------
 #
-- name: Save OCP Images to Tarball
-  docker_image:
-    name: "{{ item.name }}"
-    archive_path: "{{ serapeum_offline_images_dir}}/{{ serapeum_ocp_offline_images_tarball }}"
-    tag: "{{ item.tag }}"
-  with_items:
-#  - "{{ serapeum_ocp_base_images }}"
-#  - "{{ serapeum_ocp_logging_metrics_images }}"
-  - "{{ serapeum_ocp_extra_images }}"
-  when:
-    - serapeum_openshift_enabled
-    - ocp_images_pulled
-  register: ocp_images_saved
+- name: Verify Docker Image Tarball File Exists
+    stat:
+      path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+    regster: docker_tarball
+
+- name: Fail if Tarball Does Not Exist
+  fail:
+    msg: "Docker Image Tarball {{ docker_tarball.stat.path }} Does Not Exist"
+  when: docker_tarball.stat.exists == false
+
+- name: Success if Tarball Does Exist
+  debug:
+    msg: "Docker Image Tarball {{ docker_tarball.stat.path }} Exists"
+  when: docker_tarball.stat.exists == true
+  register: docker_tarball_exists

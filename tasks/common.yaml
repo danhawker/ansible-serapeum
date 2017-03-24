@@ -9,7 +9,7 @@
 - name: Load OS Specific Vars
   include_vars: "{{ item }}"
   with_first_found:
-    - '{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml'        # RedHat-7
+    - '{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yaml'        # RedHat-7
     - "{{ ansible_distribution }}.yaml"                                             # RedHat.yaml or CentOS.yaml
     - "{{ ansible_os_family }}.yaml"                                                # RedHat.yaml
     - "default.yml"

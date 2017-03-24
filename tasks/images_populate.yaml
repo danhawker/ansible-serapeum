@@ -1,0 +1,55 @@
+---
+# Load, Tag & Upload Specified Docker Images
+
+#
+# -----------------------------------------------------------------------------
+# Verify Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Verify Docker Image Tarball File Exists
+    stat:
+      path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+    regster: docker_tarball
+
+- name: Fail if Tarball Does Not Exist
+  fail:
+    msg: "Docker Image Tarball {{ docker_tarball.stat.path }} Does Not Exist"
+  when: docker_tarball.stat.exists == false
+
+- name: Success if Tarball Does Exist
+  debug:
+    msg: "Docker Image Tarball {{ docker_tarball.stat.path }} Exists"
+  when: docker_tarball.stat.exists == true
+  register: docker_tarball_exists
+
+#
+# -----------------------------------------------------------------------------
+# Load and Tag Offline Images from Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Load Offline Images Tarball
+  docker_image:
+    name: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
+    load_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+  when:
+  - docker_tarball_exists
+  register: docker_images_loaded
+
+#
+# -----------------------------------------------------------------------------
+# Upload Images to Registry
+# -----------------------------------------------------------------------------
+#
+- name: Upload Images to Registry
+  docker_image:
+    name: "{{ item.name }}"
+    tag: "{{ item.tag }}"
+    push: yes
+    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
+  with_items:
+  - "{{ serapeum_docker_images }}"
+  when:
+      - registry_started
+      - docker_images_loaded
+  register: docker_images_uploaded

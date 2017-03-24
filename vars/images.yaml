@@ -11,3 +11,6 @@
 serapeum_docker_images:
 - { "repository": "docker.io", "name": "alpine", "tag": "3.5"}
 #- { "repository": "docker.io", "name": "sonatype/nexus3", "tag": "3.2.1"}
+
+# Offline Tarball Name
+serapeum_docker_offline_images_tarball: "docker_images.tar"
