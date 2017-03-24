@@ -7,7 +7,7 @@
 # -----------------------------------------------------------------------------
 #
 - include: common.yaml
-  tags: [prepare,populate]
+  tags: [prepare,populate,openshift]
 
 #
 # -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 - include: docker_el.yaml
   when:
   - ansible_os_family == "RedHat"
-  tags: [prepare,populate]
+  tags: [prepare,populate,openshift]
 
 #
 # -----------------------------------------------------------------------------

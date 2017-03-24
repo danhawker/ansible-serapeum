@@ -30,5 +30,5 @@
 #
 - name: Load OCP Specific Vars
   include_vars:
-    file: "OCP_{{ serapeum_openshift_version }}.yaml"
+    file: "ocp_{{ serapeum_openshift_version }}.yaml"
   when: serapeum_openshift_enabled

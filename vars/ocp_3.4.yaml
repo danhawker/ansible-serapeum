@@ -25,8 +25,8 @@ serapeum_ocp_base_images:
 
 # Extra OCP Images
 serapeum_ocp_extra_images:
-- { "repository": "registry.access.redhat.com", "name": "rhel7/etcd", "tag": "latest"}
-- { "repository": "registry.access.redhat.com", "name": "rhel7/rhel-atomic", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "etcd", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "rhel-atomic", "tag": "latest"}
 
 # OCP Logging and Metrics Images
 serapeum_ocp_logging_metrics_images:

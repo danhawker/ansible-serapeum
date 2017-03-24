@@ -33,7 +33,7 @@
 #
 - name: Save Images to Tarball
   docker_image:
-    name: "{{ item.name }}"
+    name: "{{ item.repository }}/{{ item.namespace }}/{{ item.name }}"
     archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
     tag: "{{ item.tag }}"
   with_items:
@@ -53,11 +53,11 @@
 
 - name: Fail if Tarball Does Not Exist
   fail:
-    msg: "Docker Image Tarball {{ docker_tarball.stat.path }} Does Not Exist"
+    msg: "Docker Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }} Does Not Exist"
   when: docker_tarball.stat.exists == false
 
 - name: Success if Tarball Does Exist
   debug:
-    msg: "Docker Image Tarball {{ docker_tarball.stat.path }} Exists"
+    msg: "Docker Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }} Exists"
   when: docker_tarball.stat.exists == true
   register: docker_tarball_exists
