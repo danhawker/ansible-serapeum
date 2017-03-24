@@ -41,7 +41,7 @@
 #
 - include: registry_el.yaml
   when:
-  - serapeum_stage_deploy
+  - serapeum_stage_populate
   - ansible_os_family == "RedHat"
   tags: [populate]
 
@@ -51,7 +51,7 @@
 # -----------------------------------------------------------------------------
 #
 - include: images_populate.yaml
-  when: serapeum_stage_deploy
+  when: serapeum_stage_populate
   tags: [populate]
 
 - include: ocp_images_populate.yaml
