@@ -2,8 +2,8 @@
 # defaults file for ansible-serapeum
 
 # Enabled Stages
-serapeum_stage_prepare: false
-serapeum_stage_populate: false
+#serapeum_stage_prepare: false
+#serapeum_stage_populate: false
 
 # Offline Images Directory - where docker images are exported to
 serapeum_offline_images_dir: /var/tmp/serapeum_offline

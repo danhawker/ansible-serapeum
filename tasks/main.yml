@@ -25,12 +25,12 @@
 # -----------------------------------------------------------------------------
 #
 - include: images_prepare.yaml
-  when: serapeum_stage_prepare
+#  when: serapeum_stage_prepare
   tags: [prepare]
 
 - include: ocp_images_prepare.yaml
   when:
-    - serapeum_stage_prepare
+#    - serapeum_stage_prepare
     - serapeum_openshift_enabled
   tags: [prepare,openshift]
 
@@ -41,7 +41,7 @@
 #
 - include: registry_el.yaml
   when:
-  - serapeum_stage_populate
+#  - serapeum_stage_populate
   - ansible_os_family == "RedHat"
   tags: [populate]
 
@@ -51,11 +51,11 @@
 # -----------------------------------------------------------------------------
 #
 - include: images_populate.yaml
-  when: serapeum_stage_populate
+#  when: serapeum_stage_populate
   tags: [populate]
 
 - include: ocp_images_populate.yaml
   when:
-  - serapeum_stage_populate
+#  - serapeum_stage_populate
   - serapeum_openshift_enabled
   tags: [populate,openshift]
