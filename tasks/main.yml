@@ -7,6 +7,7 @@
 # -----------------------------------------------------------------------------
 #
 - include: common.yaml
+  tags: [prepare,populate]
 
 #
 # -----------------------------------------------------------------------------
@@ -16,6 +17,7 @@
 - include: docker_el.yaml
   when:
   - ansible_os_family == "RedHat"
+  tags: [prepare,populate]
 
 #
 # -----------------------------------------------------------------------------
@@ -24,6 +26,13 @@
 #
 - include: images_prepare.yaml
   when: serapeum_stage_prepare
+  tags: [prepare]
+
+- include: ocp_images_prepare.yaml
+  when:
+    - serapeum_stage_prepare
+    - serapeum_openshift_enabled
+  tags: [prepare,openshift]
 
 #
 # -----------------------------------------------------------------------------
@@ -34,6 +43,7 @@
   when:
   - serapeum_stage_deploy
   - ansible_os_family == "RedHat"
+  tags: [populate]
 
 #
 # -----------------------------------------------------------------------------
@@ -42,3 +52,10 @@
 #
 - include: images_populate.yaml
   when: serapeum_stage_deploy
+  tags: [populate]
+
+- include: ocp_images_populate.yaml
+  when:
+  - serapeum_stage_populate
+  - serapeum_openshift_enabled
+  tags: [populate,openshift]

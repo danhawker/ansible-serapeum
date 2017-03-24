@@ -1,0 +1,67 @@
+---
+# Download & Archive Specified OCP Images
+
+#
+# -----------------------------------------------------------------------------
+# Download OCP Images from repos
+# -----------------------------------------------------------------------------
+#
+- name: Pull OCP Images
+  docker_image:
+    name: "{{ item.repository }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
+  with_items:
+#  - "{{ serapeum_ocp_base_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  register: ocp_images_pulled
+
+#
+# -----------------------------------------------------------------------------
+# Create temp dir
+# -----------------------------------------------------------------------------
+#
+- name: Create Images Export Directory
+  file:
+    path: "{{ serapeum_offline_images_dir }}"
+    state: directory
+    mode: 0777
+  register: temp_dir_created
+
+#
+# -----------------------------------------------------------------------------
+# Archive OCP Images to Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Archive OCP Images to Tarball
+  docker_image:
+    name: "{{ item.name }}"
+    archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
+    tag: "{{ item.tag }}"
+  with_items:
+#  - "{{ serapeum_ocp_base_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  when: ocp_images_pulled
+  register: ocp_images_archived
+
+#
+# -----------------------------------------------------------------------------
+# Verify Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Verify OCP Image Tarball File Exists
+  stat:
+    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
+  register: ocp_tarball
+
+- name: Fail if Tarball Does Not Exist
+  fail:
+    msg: "OCP Image Tarball {{ ocp_tarball.stat.path }} Does Not Exist"
+  when: ocp_tarball.stat.exists == false
+
+- name: Success if Tarball Does Exist
+  debug:
+    msg: "OCP Image Tarball {{ ocp_tarball.stat.path }} Exists"
+  when: ocp_tarball.stat.exists == true
+  register: ocp_tarball_exists
