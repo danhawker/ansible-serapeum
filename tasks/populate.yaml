@@ -1,0 +1,66 @@
+---
+# Populate Registry
+
+#
+# -----------------------------------------------------------------------------
+# Verify Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Verify Images Tarball
+  stat:
+    path: "{{ serapeum_offline_images_dir}}/images.tar"
+  with_items:
+    - "{{ serapeum_offline_images_tarballs }}"
+  register: tarball_path
+
+- name: Fail if Tarball Does Not Exist
+  fail:
+    msg: "Offline Image Tarball {{ item.name }} does not exist"
+  with_items: "{{ tarball_path.results }}"
+  when: item.stat.exists == false
+
+- name: Register If Tarballs Exist
+  debug:
+    msg: "Offline Image Tarball {{ item.name }} Exists"
+  with_items: "{{ tarball_path.results }}"
+  when: item.stat.exists == true
+  register: offline_files_exist
+
+#
+# -----------------------------------------------------------------------------
+# Load and Tag Offline Images from Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Load Offline Images Tarball
+  docker_image:
+    name: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
+    load_path: "{{ serapeum_offline_images_dir }}/images.tar"
+  with_items:
+  - "{{ serapeum_ocp_extra_images }}"
+  when:
+  - offline_files_exist
+  register: images_loaded
+
+#
+# -----------------------------------------------------------------------------
+# Upload Images to Registry
+# -----------------------------------------------------------------------------
+#
+- name: Upload Images to Registry
+  docker_image:
+    name: "{{ item.name }}"
+    tag: "{{ item.tag }}"
+    push: yes
+    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
+  with_items:
+#  - "{{ serapeum_ocp_base_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
+  when:
+      - registry_started
+      - images_loaded
+  register: images_uploaded
+
+
+#

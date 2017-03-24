@@ -1,0 +1,12 @@
+---
+# Images specific vars file for ansible-serapeum
+
+#
+# -----------------------------------------------------------------------------
+# Define Docker Images to Download
+# -----------------------------------------------------------------------------
+#
+
+# Docker Images to Pull/Push
+serapeum_docker_images:
+- { "repository": "docker.io", "name": "sonatype/nexus3", "tag": "3.2.1"}

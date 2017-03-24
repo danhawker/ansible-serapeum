@@ -41,8 +41,8 @@ A description of the settable variables for this role should go here, including 
 Available variables are listed below, along with default values:
 
     serapeum_hostname: localhost
-    openshift_enabled: true
-    openshift_version: v3.4
+    serapeum_openshift_enabled: true
+    serapeum_openshift_version: 3.4
     use_skopeo: false
 
     serapeum_offline_images_dir: /tmp

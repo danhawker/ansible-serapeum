@@ -1,0 +1,76 @@
+---
+# Download and Archive Docker Images
+
+#
+# -----------------------------------------------------------------------------
+# Download Docker Images from repos
+# -----------------------------------------------------------------------------
+#
+- name: Pull Docker Images
+  docker_image:
+    name: "{{ item.repository }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
+  with_items:
+  - "{{ serapeum_docker_images }}"
+  register: docker_images_pulled
+
+#
+# -----------------------------------------------------------------------------
+# Download OCP Images from repos
+# -----------------------------------------------------------------------------
+#
+- name: Pull OCP Images
+  docker_image:
+    name: "{{ item.repository }}/{{ item.name }}"
+    tag: "{{ item.tag }}"
+  with_items:
+#  - "{{ serapeum_ocp_base_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
+  when: serapeum_openshift_enabled
+  register: ocp_images_pulled
+
+#
+# -----------------------------------------------------------------------------
+# Create temp dir
+# -----------------------------------------------------------------------------
+#
+- name: Create Images Export Directory
+  file:
+    path: "{{ serapeum_offline_images_dir }}"
+    state: directory
+    mode: 0777
+
+#
+# -----------------------------------------------------------------------------
+# Archive Docker Images to Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Save Images to Tarball
+  docker_image:
+    name: "{{ item.name }}"
+    archive_path: "{{ serapeum_offline_images_dir}}/docker_images.tar"
+    tag: "{{ item.tag }}"
+  with_items:
+  - "{{ serapeum_docker_images }}"
+  when: docker_images_pulled
+  register: docker_images_saved
+
+#
+# -----------------------------------------------------------------------------
+# Archive OCP Images to Tarball
+# -----------------------------------------------------------------------------
+#
+- name: Save OCP Images to Tarball
+  docker_image:
+    name: "{{ item.name }}"
+    archive_path: "{{ serapeum_offline_images_dir}}/{{ serapeum_ocp_offline_images_tarball }}.tar"
+    tag: "{{ item.tag }}"
+  with_items:
+#  - "{{ serapeum_ocp_base_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
+  when:
+    - serapeum_openshift_enabled
+    - ocp_images_pulled
+  register: ocp_images_saved

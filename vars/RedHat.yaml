@@ -1,0 +1,11 @@
+---
+# RHEL specific vars file for ansible-serapeum
+
+# Docker Package and Service Name
+serapeum_docker_service_name: docker
+
+# Docker.py Package Name
+serapeum_docker_py_name: python-docker-py
+
+# Registry Package and Service Name
+serapeum_registry_service_name: docker-distribution

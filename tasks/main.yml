@@ -10,16 +10,35 @@
 
 #
 # -----------------------------------------------------------------------------
+# Docker Tasks
+# -----------------------------------------------------------------------------
+#
+- include: docker_el.yaml
+  when:
+  - ansible_os_family == "RedHat"
+
+#
+# -----------------------------------------------------------------------------
 # Download and Prepare Images
 # -----------------------------------------------------------------------------
 #
-- include: download_prepare.yaml
+- include: download_archive.yaml
   when: serapeum_stage_prepare
 
 #
 # -----------------------------------------------------------------------------
-# Deploy Registry and Populate
+# Deploy Registry
 # -----------------------------------------------------------------------------
 #
-- include: deploy_populate.yaml
+- include: registry_el.yaml
+  when:
+  - serapeum_stage_deploy
+  - ansible_os_family == "RedHat"
+
+#
+# -----------------------------------------------------------------------------
+# Populate Registry
+# -----------------------------------------------------------------------------
+#
+- include: populate.yaml
   when: serapeum_stage_deploy

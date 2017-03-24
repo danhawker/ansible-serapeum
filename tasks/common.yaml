@@ -1,41 +1,25 @@
 ---
-# Common Setup
+# Common Tasks
 
 #
 # -----------------------------------------------------------------------------
-# Install docker (engine)
+# Load vars
 # -----------------------------------------------------------------------------
 #
-- name: Install Docker
-  yum:
-    name: "{{ serapeum_docker_service_name }}"
-    state: present
-  when: ansible_os_family == "RedHat"
-  register: "docker_installed"
+- name: Load OS Specific Vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - '{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml'        # RedHat-7
+    - "{{ ansible_distribution }}.yaml"                                             # RedHat.yaml or CentOS.yaml
+    - "{{ ansible_os_family }}.yaml"                                                # RedHat.yaml
+    - "default.yml"
 
 #
 # -----------------------------------------------------------------------------
-# Enable and Start Docker
+# Load OCP vars if enabled
 # -----------------------------------------------------------------------------
 #
-- name: Enable and Start Docker
-  service:
-    name: "{{ serapeum_docker_service_name }}"
-    state: started
-    enabled: yes
-  when:
-    - ansible_os_family == "RedHat"
-    - docker_installed
-  register: "docker_started"
-
-#
-# -----------------------------------------------------------------------------
-# Install docker.py Docker API Python Library
-# -----------------------------------------------------------------------------
-#
-- name: Install docker.py
-  yum:
-    name: "{{ serapeum_docker_py_name }}"
-    state: present
-  when: ansible_os_family == "RedHat"
-  register: "docker_py_installed"
+- name: Load OCP Specific Vars
+  include_vars: "{{ item }}"
+    file: "OCP_{{ serapeum_openshift_version }}.yaml"
+  when: serapeum_openshift_enabled

@@ -5,17 +5,15 @@
 serapeum_stage_prepare: false
 serapeum_stage_deploy: false
 
-# Docker Defaults
-serapeum_docker_service_name: docker
-
-# Docker.py Defaults
-serapeum_docker_py_name: python-docker-py
-
 # Offline Images Directory - where docker images are exported to
 serapeum_offline_images_dir: /var/tmp/serapeum_offline
 
-# Registry Defaults
+# Registry Hostname - defaults to ansible_fqdn
 serapeum_registry_hostname: "{{ ansible_fqdn }}"
-serapeum_registry_service_name: docker-distribution
+# Registry Port
 serapeum_registry_port: 5000
+# Set the Registry as Insecure or Not
 serapeum_registry_insecure: true
+
+# OpenShift
+serapeum_openshift_enabled: false
