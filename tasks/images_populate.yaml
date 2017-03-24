@@ -7,9 +7,9 @@
 # -----------------------------------------------------------------------------
 #
 - name: Verify Docker Image Tarball File Exists
-    stat:
-      path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
-    regster: docker_tarball
+  stat:
+    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+  register: docker_tarball
 
 - name: Fail if Tarball Does Not Exist
   fail:
@@ -29,9 +29,12 @@
 #
 - name: Load Offline Images Tarball
   docker_image:
-    name: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
+    name: "{{ item.name }}"
     tag: "{{ item.tag }}"
+    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.name }}"
     load_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+  with_items:
+  - "{{ serapeum_docker_images }}"
   when:
   - docker_tarball_exists
   register: docker_images_loaded

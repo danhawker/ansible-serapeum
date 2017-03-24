@@ -47,9 +47,9 @@
 # -----------------------------------------------------------------------------
 #
 - name: Verify Docker Image Tarball File Exists
-    stat:
-      path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
-    regster: docker_tarball
+  stat:
+    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+  register: docker_tarball
 
 - name: Fail if Tarball Does Not Exist
   fail:
