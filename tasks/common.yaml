@@ -16,10 +16,19 @@
 
 #
 # -----------------------------------------------------------------------------
+# Load Default Image vars if enabled
+# -----------------------------------------------------------------------------
+#
+- name: Load Default Docker Image Vars
+  include_vars:
+    file: "images.yaml"
+
+#
+# -----------------------------------------------------------------------------
 # Load OCP vars if enabled
 # -----------------------------------------------------------------------------
 #
 - name: Load OCP Specific Vars
-  include_vars: "{{ item }}"
+  include_vars:
     file: "OCP_{{ serapeum_openshift_version }}.yaml"
   when: serapeum_openshift_enabled
