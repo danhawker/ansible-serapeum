@@ -31,9 +31,16 @@
 # Archive Docker Images to Tarball
 # -----------------------------------------------------------------------------
 #
+
+- name: Debug Items vars
+  debug:
+    msg: "{{ item }}"
+  with_items:
+  - "{{ serapeum_docker_images }}"
+
 - name: Save Images to Tarball
   docker_image:
-    name: "{{ item.repository }}/{{ item.namespace | default(omit) }}/{{ item.name }}"
+    name: "{{ item.repository }}{{ "/" ~ item.namespace | default(omit) }}/{{ item.name }}"
     archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
     tag: "{{ item.tag }}"
   with_items:
