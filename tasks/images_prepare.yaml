@@ -33,13 +33,33 @@
 #
 - name: Save Images to Tarball
   docker_image:
-    name: "{{ item.repository }}/{{ item.namespace }}/{{ item.name }}"
+    name: "{{ item.repository }}/{{ item.namespace | default(omit) }}/{{ item.name }}"
     archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
     tag: "{{ item.tag }}"
   with_items:
   - "{{ serapeum_docker_images }}"
   when: docker_images_pulled
   register: docker_images_saved
+
+- name: Remove Previous Tarball if Exists
+  file:
+    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+    state: absent
+
+- name: Set Fact of All Images for Docker Save
+  setfact:
+    serapeum_docker_images_fullname: "{{ serapeum_docker_images| }}"
+
+- name: Debug serapeum_docker_images_fullname
+  debug: msg="{{ serapeum_docker_images_fullname }}"
+
+- name: Archive Images to Tarball
+  command: "/usr/bin/docker save -o {{ serapeum_docker_offline_images_tarball }} {{ item }}"
+  with_items:
+    - "{{ serapeum_docker_images }}"
+  when:
+    - docker_images_pulled
+  register: docker_images_archived
 
 #
 # -----------------------------------------------------------------------------
