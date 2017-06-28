@@ -47,7 +47,7 @@
     state: absent
 
 - name: Set Fact of All Images for Docker Save
-  setfact:
+  set_fact:
     serapeum_docker_images_fullname: "{{ serapeum_docker_images| }}"
 
 - name: Debug serapeum_docker_images_fullname
