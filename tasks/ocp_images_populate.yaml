@@ -31,7 +31,7 @@
   docker_image:
     name: "{{ item.name }}"
     tag: "{{ item.tag }}"
-    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.namespace }}/{{ item.name }}"
+    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name }}"
     load_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
   with_items:
 #  - "{{ serapeum_ocp_base_images }}"
@@ -51,7 +51,7 @@
     name: "{{ item.name }}"
     tag: "{{ item.tag }}"
     push: yes
-    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}/{{ item.namespace }}/{{ item.name }}"
+    repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name }}"
   with_items:
 #  - "{{ serapeum_ocp_base_images }}"
   - "{{ serapeum_ocp_extra_images }}"

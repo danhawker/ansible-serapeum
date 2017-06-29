@@ -10,10 +10,9 @@
 # Docker Images to Pull/Push
 serapeum_docker_images:
 - { "repository": "docker.io", "namespace":, "name": "alpine", "tag": "3.5"}
-#- { "repository": "docker.io", "namespace": "", "name": "alpine", "tag": "3.5"}
-#- { "repository": "docker.io", "namespace": "sonatype", "name": "nexus3", "tag": "3.2.1"}
+- { "repository": "docker.io", "namespace": "sonatype", "name": "nexus3", "tag": "3.2.1"}
 
-serapeum_docker_images_to_archive: 
+serapeum_docker_images_to_archive:
 
 # Offline Tarball Name
 serapeum_docker_offline_images_tarball: "docker_images.tar"

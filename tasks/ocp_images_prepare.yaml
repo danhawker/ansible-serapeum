@@ -8,7 +8,7 @@
 #
 - name: Pull OCP Images
   docker_image:
-    name: "{{ item.repository }}/{{ item.name }}"
+    name: "{{ item.repository }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name}}"
     tag: "{{ item.tag }}"
   with_items:
 #  - "{{ serapeum_ocp_base_images }}"
@@ -32,10 +32,15 @@
 # -----------------------------------------------------------------------------
 # Archive OCP Images to Tarball
 # -----------------------------------------------------------------------------
-# serapeum_ocp_offline_images_tarball
+#
+- name: Remove Previous Tarball if Exists
+  file:
+    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
+    state: absent
+
 - name: Archive OCP Images to Tarball
   docker_image:
-    name: "{{ item.repository }}/{{ item.namespace }}/{{ item.name }}"
+    name: "{{ item.repository }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name}}"
     archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
     tag: "{{ item.tag }}"
   with_items:
