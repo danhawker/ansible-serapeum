@@ -6,21 +6,21 @@
 # Verify Tarball
 # -----------------------------------------------------------------------------
 #
-- name: Verify Docker Image Tarball File Exists
-  stat:
-    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
-  register: docker_tarball
+#- name: Verify Docker Image Tarball File Exists
+#  stat:
+#    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+#  register: docker_tarball
 
-- name: Fail if Tarball Does Not Exist
-  fail:
-    msg: "Docker Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }} Does Not Exist"
-  when: docker_tarball.stat.exists == false
+#- name: Fail if Tarball Does Not Exist
+#  fail:
+#    msg: "Docker Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }} Does Not Exist"
+#  when: docker_tarball.stat.exists == false
 
-- name: Success if Tarball Does Exist
-  debug:
-    msg: "Docker Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }} Exists"
-  when: docker_tarball.stat.exists == true
-  register: docker_tarball_exists
+#- name: Success if Tarball Does Exist
+#  debug:
+#    msg: "Docker Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }} Exists"
+#  when: docker_tarball.stat.exists == true
+#  register: docker_tarball_exists
 
 #
 # -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@
     name: "{{ item.name }}"
     tag: "{{ item.tag }}"
     repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name }}"
-    load_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_docker_offline_images_tarball }}"
+    load_path: "{{ serapeum_offline_images_dir }}/docker_image_{{ item.name }}.tar"
   with_items:
   - "{{ serapeum_docker_images }}"
   when:
