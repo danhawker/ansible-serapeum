@@ -23,7 +23,7 @@
     dest: /etc/sysconfig/docker
     regexp: '^{{ item.reg_conf_var }}=.*$'
     line: "{{ item.reg_conf_var }}='{{ item.reg_fact_val | oo_prepend_strings_in_list(item.reg_flag ~ ' ') | join(' ') }}'"
-  when: item.reg_fact_val != '' and docker_check.stat.isreg is defined and docker_check.stat.isreg
+  when: item.reg_fact_val != '' and registry_installed
   with_items:
   - reg_conf_var: ADD_REGISTRY
     reg_fact_val: "{{ serapeum_additional_registries | default(None, true)}}"
