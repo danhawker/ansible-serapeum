@@ -132,6 +132,15 @@ $ ansible-playbook -i inventory site.yaml --tags prepare
 ----
 
 
+=== To Do
+
+Lots, this is only a first pass.
+
+* Add a bit of robustness by re-introducing verifications in the tasks
+* Add deployment of Ansible and dependencies for truly disconnected
+* Some Tests would be nice
+* Appliance style version possibly useful - AMI, QEMU, OVA images?
+
 === License
 
 Apache 2.0 - See LICENSE
