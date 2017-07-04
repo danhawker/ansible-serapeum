@@ -14,14 +14,15 @@ serapeum_ocp_extra_images_tag: "latest"
 
 # Base OCP Images
 serapeum_ocp_base_images:
-- { "name": "registry.access.redhat.com/openshift3/ose", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/ose-haproxy-router", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/ose-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/ose-sti-builder", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/ose-docker-builder", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/ose-pod", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/ose-docker-registry", "tag": "{{ serapeum_ocp_base_images_tag }}" }
-- { "name": "registry.access.redhat.com/openshift3/openvswitch", "tag": "{{ serapeum_ocp_base_images_tag }}" }
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-haproxy-router", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-sti-builder", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-docker-builder", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-pod", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-docker-registry", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "openvswitch", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+
 
 # Extra OCP Images
 serapeum_ocp_extra_images:
@@ -30,16 +31,17 @@ serapeum_ocp_extra_images:
 
 # OCP Logging and Metrics Images
 serapeum_ocp_logging_metrics_images:
-- { "name": "registry.access.redhat.com/openshift3/logging-deployer", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/logging-elasticsearch", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/logging-kibana", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/logging-fluentd", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/logging-curator", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/logging-auth-proxy", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/metrics-deployer", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/metrics-hawkular-metrics", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/metrics-cassandra", "tag": "3.3.1"}
-- { "name": "registry.access.redhat.com/openshift3/metrics-heapster", "tag": "3.3.1"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "logging-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "logging-elasticsearch", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "logging-kibana", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "logging-fluentd", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "logging-curator", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "logging-auth-proxy", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "metrics-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "metrics-hawkular-metrics", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "metrics-cassandra", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "metrics-heapster", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+
 
 # OCP Offline Tarball Name
 serapeum_ocp_offline_images_tarball: "ocp34_images.tar"

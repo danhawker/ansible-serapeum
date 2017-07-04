@@ -53,17 +53,17 @@ serapeum_ocp_base_images:
 #
 serapeum_ocp_extra_images:
 # Jenkins 2 tags: latest, v3.5, 2.32-8
-#- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-2-rhel7", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-2-rhel7", "tag": "latest"}
 # Jenkins Slave Base tags: latest, v3.5, 1.0-18
-#- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-base-rhel7", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-base-rhel7", "tag": "latest"}
 # Jenkins Slave Maven tags: latest, v3.5, 1.0-18
-#- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-maven-rhel7", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-maven-rhel7", "tag": "latest"}
 # Jenkins Slave Nodejs tags: latest, v3.5, 1.0-18
-#- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-nodejs-rhel7", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-nodejs-rhel7", "tag": "latest"}
 # ETCD for containerised and Atomic Host installs
 - { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "etcd", "tag": "latest"}
 # Image Inspector
-#- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "image-inspector", "tag": "latest"}
+- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "image-inspector", "tag": "latest"}
 # RHEL Atomic Image
 - { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "rhel-atomic", "tag": "latest"}
 
