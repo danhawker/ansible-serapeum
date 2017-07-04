@@ -1,0 +1,138 @@
+== ansible-serapeum
+
+This Ansible role hopes to make the creation and population of an offline or disconnected Container Registry with relevant Images trivial.
+
+Originally conceived to help Red Hat consultants in the installation of OpenShift Container Platform in disconnected or complex network environments, where access to the main Red Hat Container Registry is not available.
+
+=== Serapeum?
+
+Named after the daughter library of the Ancient Library of Alexandria. After the main library was destroyed, scholars migrated a curated set of works to a "daughter library" in a temple known as the Serapeum, located in another part of the city.
+
+
+=== What Happens
+
+The role has two key tasks - prepare and populate, that can be run independently or as one.
+
+==== Prepare
+Prepares Serapeum - setting up a local docker daemon, downloading required images and archiving to tarball(s)
+
+. Installs and Configures Local Docker daemon (`docker`)
+. Downloads required images to cache (`/var/lib/docker`)
+. Archive cached images to tarballs
+
+==== Populate
+Populates Serapeum - sets up a local registry and then loads and tags images from the archived tarballs.
+
+. Installs and Configures Local Docker Registry (`docker-distribution`)
+. Unpacks, tags and uploads images from tarball to the local Registry.
+
+=== Workflow
+
+. Run Prepare on Internet Connected Host (eg AWS instance)
+. Copy Archived Tarballs to destination via whatever method works in your weird disconnected world. USB key, hard disk, tape, FTP, carrier pigeon, whatever.
+. Run Populate on Disconnected Host
+
+
+=== Requirements
+
+This role makes extensive use of newer `docker_image` and `docker_image_facts` CORE module features and as such requires:
+
+* Anbible core >= 2.3.0
+* docker-py >= 1.7.0
+* Docker API >= 1.20
+
+NOTE: Ansible v2.3 or later is required due to early pull/push issues with larger container images.
+
+NOTE: The role will attempt to install docker, docker-py and docker-distribution to settle the requirements of each stage, hence a suitable Yum repository must be available.
+
+NOTE: This role has only been tested on RHEL7 systems.
+
+
+=== Role Variables
+
+A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+
+Commonly used variables are listed below, along with default values that may require being overridden:
+
+    `serapeum_hostname: {{ ansible_fqdn }}`
+    `serapeum_openshift_enabled: false`
+    `serapeum_openshift_version: 3.5`
+
+    `serapeum_offline_images_dir: /var/tmp/serapeum_offline`
+
+
+Out of the Box, Serapeum will cache and archive images that are defined within `vars/images.yaml` and if the variable `serapeum_openshift_enabled` is set to _true_, those defined in `vars/ocp-X.X.yaml` where X.X is the OpenShift Version defined with `serapeum_openshift_version`.
+
+Images are defined by simply creating a valid list containing the target images, defined in a dictionary of key-value pairs, using the syntax `<repository>/<namespace>/<name>:<tag>`
+
+This makes updating/adding differing image groups relatively simple, just add additional image group files.
+
+Please see the examples below.
+
+[source,yaml]
+----
+---
+serapeum_docker_images:
+# defines image docker.io/alpine:3.5
+- { "repository": "docker.io", "namespace":, "name": "alpine", "tag": "3.5"}
+# defines image docker.io/sonatype/nexus3:3.2.1
+- { "repository": "docker.io", "namespace": "sonatype", "name": "nexus3", "tag": "3.2.1"}
+----
+
+Valid keys are described below.
+* `repository` - Which repository to retrieve from eg registry.access.redhat.com, docker.io, gcr.io, quay.io, etc
+* `namespace` - Which namespace or sub-directory the image is stored in. For the example CentOS image namespace would be `centos`
+* `name` - The image name. For the example CentOS image, name would be `centos7`
+* `tag` - The tag. For the example CentOS image, tag would be `7.3`
+
+For an example CentOS 7.3 image located at `docker.io/centos/centos7:7.3`
+
+* `repository` => `docker.io`
+* `namespace` => `centos`
+* `name` => `centos7`
+* `tag` => `7.3`
+
+Resulting in...
+[source,yaml]
+----
+- { "repository": "docker.io", "namespace": "centos", "name": "centos7", "tag": "7.3"}
+----
+
+
+=== Dependencies
+
+A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+
+NONE - only using core modules.
+
+=== Example Playbook
+
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
+.site.yaml
+[source,yanl]
+----
+---
+# Sample Playbook
+
+- name: Serapeum
+  hosts: all
+
+  roles:
+    - serapeum
+----
+
+.Using The Playbook - Prepare Serapeum Enabling OpenShift
+[source,shell]
+----
+$ ansible-playbook -i inventory site.yaml --tags prepare -e serapeum_openshift_enabled=true
+----
+
+
+=== License
+
+Apache 2.0 - See LICENSE
+
+=== Author Information
+
+Dan Hawker
