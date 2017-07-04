@@ -16,6 +16,7 @@
 #  - "{{ serapeum_ocp_logging_metrics_images }}"
   register: ocp_images_pulled
 
+
 #
 # -----------------------------------------------------------------------------
 # Create temp dir
@@ -33,15 +34,19 @@
 # Archive OCP Images to Tarball
 # -----------------------------------------------------------------------------
 #
-- name: Remove Previous Tarball if Exists
+- name: Remove Previous Tarballs if They Exist
   file:
-    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
+    path: "{{ serapeum_offline_images_dir }}/ocp_image_{{ item.name }}.tar"
     state: absent
+  with_items:
+#  - "{{ serapeum_ocp_base_images }}"
+  - "{{ serapeum_ocp_extra_images }}"
+#  - "{{ serapeum_ocp_logging_metrics_images }}"
 
 - name: Archive OCP Images to Tarball
   docker_image:
     name: "{{ item.repository }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name}}"
-    archive_path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
+    archive_path: "{{ serapeum_offline_images_dir }}/ocp_image_image_{{ item.name }}.tar"
     tag: "{{ item.tag }}"
   with_items:
   - "{{ serapeum_ocp_extra_images }}"
@@ -50,23 +55,24 @@
   when: ocp_images_pulled
   register: ocp_images_archived
 
+
 #
 # -----------------------------------------------------------------------------
 # Verify Tarball
 # -----------------------------------------------------------------------------
 #
-- name: Verify OCP Image Tarball File Exists
-  stat:
-    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
-  register: ocp_tarball
+#- name: Verify OCP Image Tarball File Exists
+#  stat:
+#    path: "{{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }}"
+#  register: ocp_tarball
 
-- name: Fail if Tarball Does Not Exist
-  fail:
-    msg: "OCP Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }} Does Not Exist"
-  when: ocp_tarball.stat.exists == false
+#- name: Fail if Tarball Does Not Exist
+#  fail:
+#    msg: "OCP Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }} Does Not Exist"
+#  when: ocp_tarball.stat.exists == false
 
-- name: Success if Tarball Does Exist
-  debug:
-    msg: "OCP Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }} Exists"
-  when: ocp_tarball.stat.exists == true
-  register: ocp_tarball_exists
+#- name: Success if Tarball Does Exist
+#  debug:
+#    msg: "OCP Image Tarball {{ serapeum_offline_images_dir }}/{{ serapeum_ocp_offline_images_tarball }} Exists"
+#  when: ocp_tarball.stat.exists == true
+#  register: ocp_tarball_exists

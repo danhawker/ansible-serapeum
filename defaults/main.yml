@@ -17,4 +17,4 @@ serapeum_registry_insecure: true
 
 # OpenShift
 serapeum_openshift_enabled: false
-serapeum_openshift_version: 3.4
+serapeum_openshift_version: 3.5

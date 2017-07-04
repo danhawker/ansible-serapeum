@@ -24,7 +24,7 @@
 
 #
 # -----------------------------------------------------------------------------
-# Load and Tag Offline Images from Tarball
+# Load, Tag and Push Offline Images from Tarball
 # -----------------------------------------------------------------------------
 #
 
@@ -34,7 +34,7 @@
   with_items:
   - "{{ serapeum_docker_images }}"
 
-- name: Load Offline Images Tarball
+- name: Load, Tag and Push Offline Images from Tarball
   docker_image:
     name: "{{ item.repository }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name}}"
     tag: "{{ item.tag }}"

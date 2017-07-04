@@ -12,5 +12,8 @@ serapeum_registry_service_name: docker-distribution
 
 # Addiitonal Registry Parameters
 serapeum_additional_registries:
+  - registry.access.redhat.com
 serapeum_blocked_registries:
-serapeum_insecure_registries: "localhost {{ serapeum_registry_hostname }}"
+serapeum_insecure_registries:
+  - localhost
+  - {{ serapeum_registry_hostname }}

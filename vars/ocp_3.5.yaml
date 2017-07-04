@@ -1,0 +1,91 @@
+---
+# OpenShift Container Platform specific vars file for ansible-serapeum
+
+#
+# -----------------------------------------------------------------------------
+# OpenShift Container Platform v3.5
+# -----------------------------------------------------------------------------
+#
+serapeum_ocp_major_version: "3.5"
+# Which tags to download
+# Base Platorm images. OCP 3.5 is currently v3.5.5.26
+serapeum_ocp_base_images_tag: "v3.5"
+# Logging and Metrics images. OCP 3.5 is currently 3.5.0
+serapeum_ocp_logging_metrics_images_tag: "3.5.0"
+# Additional Extra Images - default to latest
+serapeum_ocp_extra_images_tag: "latest"
+
+#
+# -----------------------------------------------------------------------------
+# OpenShift Container Platform Base Images
+# -----------------------------------------------------------------------------
+#
+serapeum_ocp_base_images:
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "node", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-pod", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "openvswitch", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-docker-registry", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-docker-builder", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+
+# Routers
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-haproxy-router", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-f5-router", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-egress-router", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-keepalived-ipfailover", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+
+# Deployer Images
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-logging-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-metrics-deployer", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+
+# Misc
+# Registry Console
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "registry-console", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+# Recycler
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-recycler", "tag": "{{ serapeum_ocp_base_images_tag }}"}
+
+
+#
+# -----------------------------------------------------------------------------
+# OpenShift Container Platform Extra Images
+# -----------------------------------------------------------------------------
+#
+serapeum_ocp_extra_images:
+# Jenkins 2 tags: latest, v3.5, 2.32-8
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-2-rhel7", "tag": "latest"}
+# Jenkins Slave Base tags: latest, v3.5, 1.0-18
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-base-rhel7", "tag": "latest"}
+# Jenkins Slave Maven tags: latest, v3.5, 1.0-18
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-maven-rhel7", "tag": "latest"}
+# Jenkins Slave Nodejs tags: latest, v3.5, 1.0-18
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "jenkins-slave-nodejs-rhel7", "tag": "latest"}
+# ETCD for containerised and Atomic Host installs
+- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "etcd", "tag": "latest"}
+# Image Inspector
+- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "image-inspector", "tag": "latest"}
+# RHEL Atomic Image
+- { "repository": "registry.access.redhat.com", "namespace": "rhel7", "name": "rhel-atomic", "tag": "latest"}
+
+
+#
+# -----------------------------------------------------------------------------
+# OpenShift Container Platform Logging and Metrics Images
+# -----------------------------------------------------------------------------
+#
+serapeum_ocp_logging_metrics_images:
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-logging-fluentd", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-logging-kibana", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-logging-elasticsearch", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-logging-curator", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-logging-auth-proxy", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-metrics-cassandra", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-metrics-heapster", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-metrics-hawkular-metrics", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+- { "repository": "registry.access.redhat.com", "namespace": "openshift3", "name": "ose-metrics-hawkular-openshift-agent", "tag": "{{ serapeum_ocp_logging_metrics_images_tag }}"}
+
+
+# OCP Offline Tarball Name
+serapeum_ocp_offline_images_tarball: "ocp35_images.tar"
+
+# EOF
