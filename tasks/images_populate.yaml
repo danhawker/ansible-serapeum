@@ -41,7 +41,6 @@
     repository: "{{ serapeum_registry_hostname }}:{{ serapeum_registry_port }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name }}"
     load_path: "{{ serapeum_offline_images_dir }}/docker_image_{{ item.name }}.tar"
     push: yes
-    state: present
 #  when:
 #  - "{{ serapeum_offline_images_dir }}/docker_image_{{ item.name }}.tar"
 #  - docker_tarball_exists
