@@ -37,7 +37,7 @@ Populates Serapeum - sets up a local registry and then loads and tags images fro
 
 This role makes extensive use of newer `docker_image` and `docker_image_facts` CORE module features and as such requires:
 
-* Anbible core >= 2.3.0
+* Ansible core >= 2.3.0
 * docker-py >= 1.7.0
 * Docker API >= 1.20
 
@@ -54,11 +54,11 @@ A description of the settable variables for this role should go here, including 
 
 Commonly used variables are listed below, along with default values that may require being overridden:
 
-    `serapeum_hostname: {{ ansible_fqdn }}`
-    `serapeum_openshift_enabled: false`
-    `serapeum_openshift_version: 3.5`
+    serapeum_hostname: {{ ansible_fqdn }}
+    serapeum_openshift_enabled: false
+    serapeum_openshift_version: 3.5
 
-    `serapeum_offline_images_dir: /var/tmp/serapeum_offline`
+    serapeum_offline_images_dir: /var/tmp/serapeum_offline
 
 
 Out of the Box, Serapeum will cache and archive images that are defined within `vars/images.yaml` and if the variable `serapeum_openshift_enabled` is set to _true_, those defined in `vars/ocp-X.X.yaml` where X.X is the OpenShift Version defined with `serapeum_openshift_version`.
@@ -119,13 +119,16 @@ Including an example of how to use your role (for instance, with variables passe
   hosts: all
 
   roles:
-    - serapeum
+    - role: serapeum
+      serapeum_openshift_enabled: true
+      serapeum_openshift_version: 3.5
+
 ----
 
-.Using The Playbook - Prepare Serapeum Enabling OpenShift
+.Using The Playbook - Prepare Serapeum
 [source,shell]
 ----
-$ ansible-playbook -i inventory site.yaml --tags prepare -e serapeum_openshift_enabled=true
+$ ansible-playbook -i inventory site.yaml --tags prepare
 ----
 
 
