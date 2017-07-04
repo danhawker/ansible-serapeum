@@ -46,7 +46,7 @@
 - name: Archive OCP Images to Tarball
   docker_image:
     name: "{{ item.repository }}{{ (item.namespace == None) | ternary('', '/')  }}{{ item.namespace }}/{{ item.name}}"
-    archive_path: "{{ serapeum_offline_images_dir }}/ocp_image_image_{{ item.name }}.tar"
+    archive_path: "{{ serapeum_offline_images_dir }}/ocp_image_{{ item.name }}.tar"
     tag: "{{ item.tag }}"
   with_items:
   - "{{ serapeum_ocp_extra_images }}"
