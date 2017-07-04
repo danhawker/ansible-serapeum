@@ -16,4 +16,4 @@ serapeum_additional_registries:
 serapeum_blocked_registries:
 serapeum_insecure_registries:
   - localhost
-  - {{ serapeum_registry_hostname }}
+  - "{{ serapeum_registry_hostname }}"
