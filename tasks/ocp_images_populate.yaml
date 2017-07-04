@@ -37,8 +37,8 @@
 #  - "{{ serapeum_ocp_base_images }}"
   - "{{ serapeum_ocp_extra_images }}"
 #  - "{{ serapeum_ocp_logging_metrics_images }}"
-  when:
-  - "{{ serapeum_offline_images_dir }}/ocp_image_{{ item.name }}.tar"
+#  when:
+#  - "{{ serapeum_offline_images_dir }}/ocp_image_{{ item.name }}.tar"
 #  - ocp_tarball_exists
   register: ocp_images_loaded
 

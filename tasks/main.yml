@@ -7,7 +7,7 @@
 # -----------------------------------------------------------------------------
 #
 - include: common.yaml
-  tags: [prepare,populate,openshift]
+  tags: [prepare,populate]
 
 #
 # -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 - include: docker_el.yaml
   when:
   - ansible_os_family == "RedHat"
-  tags: [prepare,populate,openshift]
+  tags: [prepare,populate]
 
 #
 # -----------------------------------------------------------------------------
@@ -32,7 +32,7 @@
   when:
 #    - serapeum_stage_prepare
     - serapeum_openshift_enabled
-  tags: [prepare,openshift]
+  tags: [prepare]
 
 #
 # -----------------------------------------------------------------------------
@@ -58,4 +58,4 @@
   when:
 #  - serapeum_stage_populate
   - serapeum_openshift_enabled
-  tags: [populate,openshift]
+  tags: [populate]
